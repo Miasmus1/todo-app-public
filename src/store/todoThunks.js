@@ -30,11 +30,10 @@ export const fetchTodos = () => {
       }
 
       dispatch(todoActions.setTodos(todos));
-      dispatch(uiActions.showSpinner(false));
     } catch (error) {
-      console.log(error);
-      dispatch(uiActions.showSpinner(false));
+      alert(error.message);
     }
+    dispatch(uiActions.showSpinner(false));
   };
 };
 
@@ -72,11 +71,10 @@ export const sendTodoData = (todo) => {
         })
       );
       dispatch(todoActions.clearInput());
-      dispatch(uiActions.showSpinner(false));
     } catch (error) {
-      alert(error);
-      dispatch(uiActions.showSpinner(false));
+      alert(error.message);
     }
+    dispatch(uiActions.showSpinner(false));
   };
 };
 
@@ -102,11 +100,10 @@ export const toggleTodoData = (id, completed) => {
     try {
       await sendRequest();
       dispatch(todoActions.toggleTodo(id));
-      dispatch(uiActions.showSpinner(false));
     } catch (error) {
-      alert(error);
-      dispatch(uiActions.showSpinner(false));
+      alert(error.message);
     }
+    dispatch(uiActions.showSpinner(false));
   };
 };
 
@@ -129,11 +126,46 @@ export const deleteTodoData = (id) => {
     try {
       await sendRequest();
       dispatch(todoActions.deleteTodo(id));
-      dispatch(uiActions.showSpinner(false));
     } catch (error) {
       alert(error);
-      dispatch(uiActions.showSpinner(false));
     }
+    dispatch(uiActions.showSpinner(false));
+  };
+};
+
+export const reorderTodos = (todos) => {
+  return async (dispatch) => {
+    dispatch(uiActions.showSpinner(true));
+
+    const formattedTodos = todos.reduce((acc, cur) => {
+      acc[cur.id] = {
+        text: cur.text,
+        completed: cur.completed,
+      };
+      return acc;
+    }, []);
+
+    const sendRequest = async () => {
+      const response = await fetch(
+        `https://todo-app-eb66a-default-rtdb.europe-west1.firebasedatabase.app/todo.json`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(formattedTodos),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Sending todo data failed!');
+      }
+    };
+
+    try {
+      await sendRequest();
+      dispatch(todoActions.setTodos(todos));
+    } catch (error) {
+      alert(error.message);
+    }
+    dispatch(uiActions.showSpinner(false));
   };
 };
 
@@ -165,10 +197,9 @@ export const clearCompletedTodos = (todos) => {
     try {
       await sendRequest();
       dispatch(todoActions.clearCompleted());
-      dispatch(uiActions.showSpinner(false));
     } catch (error) {
-      alert(error);
-      dispatch(uiActions.showSpinner(false));
+      alert(error.message);
     }
+    dispatch(uiActions.showSpinner(false));
   };
 };

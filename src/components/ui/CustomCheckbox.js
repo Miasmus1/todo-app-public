@@ -17,7 +17,7 @@ const Radio = styled.input`
   outline: none;
   cursor: pointer;
   margin-right: 2.5rem;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 
   &:hover {
     background: linear-gradient(

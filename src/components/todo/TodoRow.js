@@ -7,8 +7,11 @@ import CustomCheckbox from '../ui/CustomCheckbox';
 
 import iconCross from '../../assets/images/icon-cross.svg';
 
+import { Draggable } from 'react-beautiful-dnd';
+
 function TodoRow(props) {
   const dispatch = useDispatch();
+  console.log(props);
 
   function toggleTodoHandler() {
     console.log(props.todo);
@@ -20,24 +23,33 @@ function TodoRow(props) {
   }
 
   return (
-    <Row>
-      <CustomCheckbox
-        checked={props.todo.completed}
-        onClick={toggleTodoHandler}
-      />
-      <span className={props.todo.completed ? 'completed' : null}>
-        {props.todo.text}
-      </span>
-      <img
-        src={iconCross}
-        onClick={deleteTodoHandler}
-        alt="Delete Todo Icon"
-      ></img>
-    </Row>
+    // Implement the Draggable component here
+    <Draggable draggableId={props.todo.id} index={props.index}>
+      {(provided) => (
+        <Row
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          <CustomCheckbox
+            checked={props.todo.completed}
+            onClick={toggleTodoHandler}
+          />
+          <span className={props.todo.completed ? 'completed' : null}>
+            {props.todo.text}
+          </span>
+          <img
+            src={iconCross}
+            onClick={deleteTodoHandler}
+            alt="Delete Todo Icon"
+          ></img>
+        </Row>
+      )}
+    </Draggable>
   );
 }
 
-const Row = styled.div`
+const Row = styled.li`
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -17,8 +17,6 @@ import Spinner from './components/ui/Spinner';
 import { uiActions } from './store/uiSlice';
 import { fetchTodos } from './store/todoThunks';
 
-let isInitial = true;
-
 function App() {
   const dispatch = useDispatch();
   const uiState = useSelector((state) => state.ui);
@@ -32,11 +30,6 @@ function App() {
   };
 
   useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
-      return;
-    }
-
     dispatch(fetchTodos());
   }, [dispatch]);
 

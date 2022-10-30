@@ -2,7 +2,7 @@ export const lightTheme = {
   rowColor: 'hsl(0, 0%, 98%)',
   background: 'hsl(236, 33%, 92%)',
   completedText: 'hsl(233, 11%, 70%)',
-  text: 'hsl(236, 9%, 32%)',
+  text: 'hsl(236, 9%, 40%)',
   textHover: ' hsl(236, 15%, 60%)',
   borderColor: 'hsla(235, 21%, 11%, 0.1)',
 };
