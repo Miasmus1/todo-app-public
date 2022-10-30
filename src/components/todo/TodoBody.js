@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { reorderTodos } from '../../store/todoThunks';
 
 import TodoRow from './TodoRow';
-
-import { reorderTodos } from '../../store/todoThunks';
 
 function TodoBody() {
   const dispatch = useDispatch();

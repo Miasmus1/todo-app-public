@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { todoActions } from '../../store/todoSlice';
-
 import { sendTodoData } from '../../store/todoThunks';
 
 import CustomCheckbox from '../ui/CustomCheckbox';

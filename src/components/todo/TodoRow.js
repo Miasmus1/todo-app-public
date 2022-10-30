@@ -1,20 +1,16 @@
 import styled from 'styled-components';
+import { Draggable } from 'react-beautiful-dnd';
+import iconCross from '../../assets/images/icon-cross.svg';
 
 import { useDispatch } from 'react-redux';
 import { toggleTodoData, deleteTodoData } from '../../store/todoThunks';
 
 import CustomCheckbox from '../ui/CustomCheckbox';
 
-import iconCross from '../../assets/images/icon-cross.svg';
-
-import { Draggable } from 'react-beautiful-dnd';
-
 function TodoRow(props) {
   const dispatch = useDispatch();
-  console.log(props);
 
   function toggleTodoHandler() {
-    console.log(props.todo);
     dispatch(toggleTodoData(props.todo.id, !props.todo.completed));
   }
 
