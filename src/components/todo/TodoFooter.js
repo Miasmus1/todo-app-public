@@ -5,7 +5,7 @@ import { clearCompletedTodos } from '../../store/todoThunks';
 
 import styled from 'styled-components';
 
-function TodoFooter(props) {
+function TodoFooter() {
   const dispatch = useDispatch();
   const todoState = useSelector((state) => state.todo);
 

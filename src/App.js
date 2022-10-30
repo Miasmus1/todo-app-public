@@ -11,9 +11,6 @@ import BackgroundImage from './components/ui/BackgroundImage';
 import Header from './components/layout/Header';
 
 import TodoList from './components/todo/TodoList';
-import TodoRow from './components/todo/TodoRow';
-import TodoFooter from './components/todo/TodoFooter';
-import TodoBody from './components/todo/TodoBody';
 
 import Spinner from './components/ui/Spinner';
 
@@ -24,7 +21,6 @@ let isInitial = true;
 
 function App() {
   const dispatch = useDispatch();
-  const todoState = useSelector((state) => state.todo);
   const uiState = useSelector((state) => state.ui);
 
   const themeToggler = () => {
@@ -51,14 +47,7 @@ function App() {
       <BackgroundImage theme={uiState.theme} />
       <Layout>
         <Header theme={uiState.theme} themeToggler={themeToggler} />
-        <TodoList>
-          <TodoBody>
-            {todoState.filteredTodos.map((todo, index) => (
-              <TodoRow key={index} todo={todo} />
-            ))}
-          </TodoBody>
-          <TodoFooter todosCount={todoState.todos.length}></TodoFooter>
-        </TodoList>
+        <TodoList />
       </Layout>
     </ThemeProvider>
   );

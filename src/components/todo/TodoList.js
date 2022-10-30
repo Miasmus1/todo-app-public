@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
-function TodoList({ children }) {
-  return <TodoListWrapper>{children}</TodoListWrapper>;
+import TodoBody from './TodoBody';
+import TodoFooter from './TodoFooter';
+
+function TodoList() {
+  return (
+    <TodoListWrapper>
+      <TodoBody />
+      <TodoFooter />
+    </TodoListWrapper>
+  );
 }
 
 const TodoListWrapper = styled.div`
