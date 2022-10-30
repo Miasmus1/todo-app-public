@@ -24,6 +24,7 @@ const TodoBodyWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border-radius: 1rem 1rem 0 0;
 `;
 
 export default TodoBody;

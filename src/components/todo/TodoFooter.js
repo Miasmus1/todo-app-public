@@ -68,6 +68,7 @@ const Footer = styled.div`
   background: ${({ theme }) => theme.rowColor};
   font-size: 1.4rem;
   border-top: 1px solid ${({ theme }) => theme.borderColor};
+  border-radius: 0 0 1rem 1rem;
 
   & > div {
     display: flex;
