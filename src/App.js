@@ -9,10 +9,9 @@ import Layout from './components/layout/Layout';
 import BackgroundImage from './components/ui/BackgroundImage';
 
 import Header from './components/layout/Header';
-
 import TodoList from './components/todo/TodoList';
-
 import Spinner from './components/ui/Spinner';
+import Info from './components/ui/Info';
 
 import { uiActions } from './store/uiSlice';
 import { fetchTodos } from './store/todoThunks';
@@ -41,6 +40,7 @@ function App() {
       <Layout>
         <Header theme={uiState.theme} themeToggler={themeToggler} />
         <TodoList />
+        <Info theme={uiState.theme} />
       </Layout>
     </ThemeProvider>
   );
