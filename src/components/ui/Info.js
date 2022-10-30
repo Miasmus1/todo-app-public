@@ -17,7 +17,11 @@ function Info({ theme }) {
           </a>{' '}
           &copy; 2022
         </p>
-        <a href="https://google.com" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/Miasmus1/todo-app-public"
+          target="_blank"
+          rel="noreferrer"
+        >
           <img src={iconTheme} alt="Github Repository Icon" />
         </a>
       </InfoBox>
