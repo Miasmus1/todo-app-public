@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { ThemeProvider } from 'styled-components';
@@ -15,31 +15,42 @@ import TodoRow from './components/todo/TodoRow';
 import TodoFooter from './components/todo/TodoFooter';
 import TodoBody from './components/todo/TodoBody';
 
-import { fetchTodos } from './store/todoActions';
+import Spinner from './components/ui/Spinner';
+
+import { uiActions } from './store/uiSlice';
+import { fetchTodos } from './store/todoThunks';
+
+let isInitial = true;
 
 function App() {
   const dispatch = useDispatch();
   const todoState = useSelector((state) => state.todo);
-  const [theme, setTheme] = useState('dark');
-
-  console.log('todoState', todoState);
+  const uiState = useSelector((state) => state.ui);
 
   const themeToggler = () => {
-    theme === 'light' ? setTheme('dark') : setTheme('light');
+    dispatch(
+      uiState.theme === 'light'
+        ? uiActions.toggleTheme('dark')
+        : uiActions.toggleTheme('light')
+    );
   };
 
   useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
+
     dispatch(fetchTodos());
   }, [dispatch]);
 
-  console.log(todoState);
-
   return (
-    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+    <ThemeProvider theme={uiState.theme === 'light' ? lightTheme : darkTheme}>
+      {uiState.loading && <Spinner />}
       <GlobalStyles />
-      <BackgroundImage theme={theme} />
+      <BackgroundImage theme={uiState.theme} />
       <Layout>
-        <Header theme={theme} themeToggler={themeToggler} />
+        <Header theme={uiState.theme} themeToggler={themeToggler} />
         <TodoList>
           <TodoBody>
             {todoState.filteredTodos.map((todo, index) => (

@@ -5,22 +5,25 @@ export const todoSlice = createSlice({
   initialState: {
     newTodo: '',
     todos: [],
+    filterStatus: 'All',
     filteredTodos: [],
+    loading: false,
   },
   reducers: {
+    showSpinner(state, action) {
+      state.loading = action.payload;
+    },
+
     newTodoHandler: (state, action) => {
       state.newTodo = action.payload;
     },
 
-    addTodo: (state) => {
-      if (state.newTodo.trim() !== '') {
-        state.todos.push({
-          id: state.todos.length + 1,
-          text: state.newTodo,
-          completed: false,
-        });
-        state.newTodo = '';
-      }
+    clearInput: (state) => {
+      state.newTodo = '';
+    },
+
+    addNewTodo: (state, action) => {
+      state.todos.push(action.payload);
     },
 
     setTodos: (state, action) => {
@@ -34,21 +37,23 @@ export const todoSlice = createSlice({
       clickedTodo.completed = !clickedTodo.completed;
     },
 
-    removeTodo: (state, action) => {
-      state.todos.splice(action.payload, 1);
+    deleteTodo: (state, action) => {
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
 
     filterTodos: (state, action) => {
-      if (action.payload === 'Completed') {
+      state.filterStatus = action.payload;
+
+      if (state.filterStatus === 'Completed') {
         state.filteredTodos = state.todos.filter((todo) => todo.completed);
-      } else if (action.payload === 'Active') {
+      } else if (state.filterStatus === 'Active') {
         state.filteredTodos = state.todos.filter((todo) => !todo.completed);
       } else {
         state.filteredTodos = state.todos;
       }
     },
 
-    clearCompleted: (state, action) => {
+    clearCompleted: (state) => {
       state.todos = state.todos.filter((todo) => !todo.completed);
     },
   },

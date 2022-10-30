@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { todoActions } from '../../store/todoSlice';
+import { clearCompletedTodos } from '../../store/todoThunks';
 
 import styled from 'styled-components';
 
 function TodoFooter(props) {
   const dispatch = useDispatch();
   const todoState = useSelector((state) => state.todo);
-  const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    dispatch(todoActions.filterTodos(filter));
-  }, [todoState.todos, filter, dispatch]);
+    dispatch(todoActions.filterTodos(todoState.filterStatus));
+  }, [todoState.todos, todoState.filterStatus, dispatch]);
 
   function filterHandler(e) {
-    setFilter(e.target.innerText);
     dispatch(todoActions.filterTodos(e.target.innerText));
   }
 
   function clearCompletedHandler() {
-    dispatch(todoActions.clearCompleted());
+    if (todoState.todos.some((todo) => todo.completed)) {
+      dispatch(clearCompletedTodos(todoState.todos));
+    }
   }
 
   const remainingTodosCount = todoState.todos.filter(
@@ -28,23 +29,23 @@ function TodoFooter(props) {
 
   return (
     <Footer>
-      <span>{remainingTodosCount} items left</span>
+      <p>{remainingTodosCount} items left</p>
       <div>
         <span
           onClick={filterHandler}
-          className={filter === 'All' ? 'active' : null}
+          className={todoState.filterStatus === 'All' ? 'active' : null}
         >
           All
         </span>
         <span
           onClick={filterHandler}
-          className={filter === 'Active' ? 'active' : null}
+          className={todoState.filterStatus === 'Active' ? 'active' : null}
         >
           Active
         </span>
         <span
           onClick={filterHandler}
-          className={filter === 'Completed' ? 'active' : null}
+          className={todoState.filterStatus === 'Completed' ? 'active' : null}
         >
           Completed
         </span>
@@ -55,30 +56,62 @@ function TodoFooter(props) {
 }
 
 const Footer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 2rem;
-  background-color: ${(props) => props.theme.inputBgColor};
-  color: ${(props) => props.theme.inputTextColor};
+  color: ${(props) => props.theme.completedText};
   transition: all 0.3s ease-out;
   background: ${({ theme }) => theme.rowColor};
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  border-top: 1px solid ${({ theme }) => theme.borderColor};
 
   & > div {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     justify-content: space-between;
   }
 
-  & > span:first-child {
-    width: 15%;
+  & > p {
+    width: 20%;
   }
 
   & span:hover {
     cursor: pointer;
+  }
+
+  & span:not(.active):hover {
+    color: ${({ theme }) => theme.textHover};
+  }
+
+  & > div > span {
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    & > p {
+      width: 30%;
+    }
+
+    & > div {
+      position: absolute;
+      bottom: -200%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: ${(props) => props.theme.rowColor};
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 2rem;
+      border-radius: 1rem;
+      transition: background-color 0.3s ease-out;
+      align-items: center;
+      box-shadow: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.2);
+    }
   }
 `;
 

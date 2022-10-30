@@ -27,17 +27,30 @@ const HeaderWrapper = styled.div`
   color: white;
   width: 100%;
 
+  @media (max-width: 375px) {
+    margin-top: 4.7rem;
+  }
+
   & > div:first-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
     width: 100%;
+
+    @media (max-width: 375px) {
+      margin-bottom: 3.4rem;
+    }
 
     & > h1 {
       font-size: 4rem;
       letter-spacing: 1.5rem;
       font-weight: 700;
+      margin-bottom: -0.5rem;
+
+      @media (max-width: 375px) {
+        font-size: 3rem;
+      }
     }
   }
 `;

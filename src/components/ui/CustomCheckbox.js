@@ -2,8 +2,12 @@ import styled from 'styled-components';
 
 import checkIcon from '../../assets/images/icon-check.svg';
 
+function CustomCheckbox({ checked, onClick }) {
+  return <Radio type="checkbox" checked={checked} onChange={onClick} />;
+}
+
 const Radio = styled.input`
-  width: 2.5rem;
+  width: 3rem;
   height: 2.5rem;
   border-radius: 50%;
   vertical-align: middle;
@@ -12,7 +16,7 @@ const Radio = styled.input`
   -webkit-appearance: none;
   outline: none;
   cursor: pointer;
-  margin-right: 2rem;
+  margin-right: 2.5rem;
   transition: all 0.3s ease-out;
 
   &:hover {
@@ -36,9 +40,5 @@ const Radio = styled.input`
     border: 1px solid transparent;
   }
 `;
-
-function CustomCheckbox({ checked, onClick }) {
-  return <Radio type="checkbox" checked={checked} onChange={onClick} />;
-}
 
 export default CustomCheckbox;

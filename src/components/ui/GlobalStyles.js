@@ -12,6 +12,7 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 62.5%;
     caret-color: hsl(220, 98%, 61%);
+    overflow-x: hidden;
   }
 
   body {
@@ -22,6 +23,10 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.text};
     font-family: 'Josefin Sans', sans-serif;
     transition: all 0.3s ease-out;
+
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+    }
   }
 
   .active {
@@ -38,7 +43,7 @@ export const GlobalStyles = createGlobalStyle`
 
    ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: ${({ theme }) => theme.text};
+    background-color: ${({ theme }) => theme.completedText};
     border-radius: 0 1rem 0 0;
   }
   
@@ -48,7 +53,7 @@ export const GlobalStyles = createGlobalStyle`
   
   ::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) => theme.rowColor};
-    border: 2px solid ${({ theme }) => theme.text};
+    border: 2px solid ${({ theme }) => theme.textHover};
     border-radius: 1rem;
   }
 `;

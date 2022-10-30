@@ -1,20 +1,19 @@
 import styled from 'styled-components';
 
+function TodoList({ children }) {
+  return <TodoListWrapper>{children}</TodoListWrapper>;
+}
+
 const TodoListWrapper = styled.div`
   width: 100%;
+  margin: 2.5rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem 1rem rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 
-  & > div {
-    margin: 3rem auto;
-    box-shadow: 0 0.5rem 3rem 1.5rem rgba(0, 0, 0, 0.1);
+  @media (max-width: 375px) {
+    margin: 1.5rem auto;
   }
 `;
-
-function TodoList({ children }) {
-  return (
-    <TodoListWrapper>
-      <div>{children}</div>
-    </TodoListWrapper>
-  );
-}
 
 export default TodoList;

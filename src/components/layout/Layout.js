@@ -5,8 +5,16 @@ const Layout = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  width: 37%;
   margin: auto;
+
+  @media (max-width: 992px) {
+    width: 60%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 export default Layout;
