@@ -143,7 +143,7 @@ export const reorderTodos = (todos) => {
         completed: cur.completed,
       };
       return acc;
-    }, []);
+    }, {});
 
     const sendRequest = async () => {
       const response = await fetch(
