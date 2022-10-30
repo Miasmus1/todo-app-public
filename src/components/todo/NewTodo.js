@@ -15,7 +15,8 @@ function NewTodo() {
     dispatch(todoActions.newTodoHandler(e.target.value));
   };
 
-  const checkboxHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     if (todoState.newTodo.trim() !== '') {
       dispatch(sendTodoData(todoState.newTodo));
     } else {
@@ -25,13 +26,15 @@ function NewTodo() {
 
   return (
     <Row>
-      <CustomCheckbox onClick={checkboxHandler} checked={false} />
-      <input
-        type="text"
-        placeholder="Create a new todo..."
-        value={todoState.newTodo}
-        onChange={newTodoInputHandler}
-      />
+      <CustomCheckbox onClick={submitHandler} checked={false} />
+      <form onSubmit={submitHandler}>
+        <input
+          type="text"
+          placeholder="Create a new todo..."
+          value={todoState.newTodo}
+          onChange={newTodoInputHandler}
+        />
+      </form>
     </Row>
   );
 }
@@ -51,8 +54,11 @@ const Row = styled.div`
     padding: 1.6rem;
   }
 
-  & input[type='text'] {
+  & form {
     width: 100%;
+  }
+
+  & input[type='text'] {
     border: none;
     background-color: transparent;
     color: ${({ theme }) => theme.text};
