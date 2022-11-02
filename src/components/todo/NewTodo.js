@@ -58,6 +58,7 @@ const Row = styled.div`
   }
 
   & input[type='text'] {
+    width: 100%;
     border: none;
     background-color: transparent;
     color: ${({ theme }) => theme.text};
