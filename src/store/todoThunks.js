@@ -26,10 +26,12 @@ export const fetchTodos = () => {
           id: key,
           text: data[key].text,
           completed: data[key].completed,
+          order: data[key].order,
         });
       }
 
-      dispatch(todoActions.setTodos(todos));
+      const sortedTodos = todos.sort((a, b) => a.order - b.order);
+      dispatch(todoActions.setTodos(sortedTodos));
     } catch (error) {
       alert(error.message);
     }
@@ -137,10 +139,11 @@ export const reorderTodos = (todos) => {
   return async (dispatch) => {
     dispatch(uiActions.showSpinner(true));
 
-    const formattedTodos = todos.reduce((acc, cur) => {
+    const formattedTodos = todos.reduce((acc, cur, index) => {
       acc[cur.id] = {
         text: cur.text,
         completed: cur.completed,
+        order: index,
       };
       return acc;
     }, {});
