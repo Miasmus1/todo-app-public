@@ -52,6 +52,10 @@ const HeaderWrapper = styled.div`
         font-size: 3rem;
       }
     }
+
+    & > img {
+      cursor: pointer;
+    }
   }
 `;
 
