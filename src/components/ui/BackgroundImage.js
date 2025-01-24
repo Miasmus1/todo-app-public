@@ -11,10 +11,14 @@ const BackgroundImage = styled.img`
   top: 0;
   content: url(${({ theme }) => (theme === 'dark' ? darkImg : lightImg)});
   z-index: -100;
+  max-width: 100vw;
+  min-height: 300px;
+  object-fit: cover;
+  object-position: left;
 
   @media (max-width: 375px) {
-    content: url(${({ theme }) =>
-      theme === 'dark' ? darkImgMobile : lightImgMobile});
+    content: url(${({ theme }) => (theme === 'dark' ? darkImgMobile : lightImgMobile)});
+    min-height: 200px;
   }
 `;
 
