@@ -23,11 +23,7 @@ function TodoBody() {
     <DragDropContext onDragEnd={onDragEndHandler}>
       <Droppable droppableId="todos">
         {(provided) => (
-          <TodoBodyWrapper
-            className="todos"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
+          <TodoBodyWrapper className="todos" {...provided.droppableProps} ref={provided.innerRef}>
             {filteredTodos.map((todo, index) => (
               <TodoRow key={todo.id} todo={todo} index={index} />
             ))}
@@ -46,7 +42,7 @@ const TodoBodyWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   border-radius: 1rem 1rem 0 0;
 `;
 
